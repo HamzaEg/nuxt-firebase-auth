@@ -34,6 +34,9 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
   ],
+  router: {
+    middleware: ['auth']
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -41,6 +44,30 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyDi71LCrcmyDwG2AVemlz2h_sf9FJADdxg",
+          authDomain: "nuxt-firebase-auth-cf381.firebaseapp.com",
+          projectId: "nuxt-firebase-auth-cf381",
+          storageBucket: "nuxt-firebase-auth-cf381.appspot.com",
+          messagingSenderId: "429032109509",
+          appId: "1:429032109509:web:4da6ff0bfee12c6d8947ac",
+          measurementId: "G-P4HT4QB52B"
+        },
+        services: {
+          auth: {
+            persistence: 'local', // default
+            initialize: {
+              onAuthStateChangedAction: 'onAuthStateChangedAction',
+              subscribeManually: false
+            },
+            ssr: false,
+          }
+        }
+      }
+    ]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -60,7 +87,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
