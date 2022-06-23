@@ -4,6 +4,7 @@
     <v-card width="500" class="elevation-4 text-left" shaped color="yellow">
       <v-card-title>Login</v-card-title>
       <v-card-subtitle>Login to your dashboard</v-card-subtitle>
+
       <v-card-text>
 
       <v-form>
@@ -28,7 +29,6 @@
 
       <v-card-actions class="text-center">
         <v-btn
-        color="green"
         class="login-button"
         @click="login"
         depressed
@@ -72,7 +72,14 @@ export default {
   },
   methods: {
     login(){
-
+      let that = this
+      this.$fire.auth.signInWithEmailAndPassword(this.auth.email, this.auth.password)
+      .catch(function (error){
+        that.snackbarText = error.message
+        that.snackbar = true
+      }).then((user)=>{
+        that.$router.push('/')
+      })
     },
     forgotPassword(){
       
