@@ -44,8 +44,6 @@
     v-model="snackbar"
     absolute
     bottom
-    color="success"
-    outlined
     right
     >
     {{ snackbarText }}
@@ -82,7 +80,16 @@ export default {
       })
     },
     forgotPassword(){
-      
+      let that = this
+      this.$fire.auth.sendPasswordResetEmail(this.auth.email)
+      .then(function(){
+        that.snackbarText = 'reset link sent to ' + that.auth.email
+        that.snackbar = true
+      })
+      .catch(function(error){
+        that.snackbarText = error.message
+        that.snackbar = true
+      })
     }
   }
 
